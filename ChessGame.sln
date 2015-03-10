@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessGame", "ChessGame\ChessGame\ChessGame.csproj", "{63759E0C-B512-47C2-B79E-C99A74166A6C}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "ChessGameContent", "ChessGame\ChessGameContent\ChessGameContent.contentproj", "{E04EF6DA-E42F-439D-8B37-DB73122790C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63759E0C-B512-47C2-B79E-C99A74166A6C}.Debug|x86.ActiveCfg = Debug|x86
+		{63759E0C-B512-47C2-B79E-C99A74166A6C}.Debug|x86.Build.0 = Debug|x86
+		{63759E0C-B512-47C2-B79E-C99A74166A6C}.Release|x86.ActiveCfg = Release|x86
+		{63759E0C-B512-47C2-B79E-C99A74166A6C}.Release|x86.Build.0 = Release|x86
+		{E04EF6DA-E42F-439D-8B37-DB73122790C0}.Debug|x86.ActiveCfg = Debug|x86
+		{E04EF6DA-E42F-439D-8B37-DB73122790C0}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
