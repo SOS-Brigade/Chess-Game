@@ -21,7 +21,12 @@ namespace ChessGame
 
         public Game1()
         {
+            // Graphics allocation + resolution 
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+
+            // Content allocations 
             Content.RootDirectory = "Content";
         }
 
