@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+
 namespace ChessGame
 {
     /// <summary>
@@ -18,13 +19,14 @@ namespace ChessGame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        private MouseState oldMouseState;
         public Game1()
         {
             // Graphics allocation + resolution 
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
+
 
             // Content allocations 
             Content.RootDirectory = "Content";
@@ -38,7 +40,8 @@ namespace ChessGame
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            Window.Title = "This is the window title";
+            IsMouseVisible = true;
 
             base.Initialize();
         }
@@ -72,10 +75,17 @@ namespace ChessGame
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            //    this.Exit();
 
-            // TODO: Add your update logic here
+            MouseState newMouseState = Mouse.GetState();
+
+
+            if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+            {
+                Console.WriteLine("HEY! LISTEN!");
+            }
+            oldMouseState = newMouseState;
 
             base.Update(gameTime);
         }
