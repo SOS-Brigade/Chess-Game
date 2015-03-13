@@ -89,13 +89,7 @@ namespace ChessGame
         {
             Window.Title = "Nyaa Chesu";
             IsMouseVisible = true;
-
-<<<<<<< HEAD
-            
-
-=======
             activeGameState = gameState.MainMenu;
->>>>>>> master
             base.Initialize();
         }
 
@@ -110,7 +104,6 @@ namespace ChessGame
 
             // TODO: use this.Content to load your game content here
 
-<<<<<<< HEAD
             newPawn = new ChessGameAssets.Pawn(new Vector2(0, 0), Content.Load<Texture2D>("ball"), new Rectangle(0, 0, 30, 30), spriteBatch);
 
             // List to store all sprited to load into the piece sprite dictionary.
@@ -137,14 +130,13 @@ namespace ChessGame
             song2 = Content.Load<Song>("test2");
             MediaPlayer.Play(song);
             MediaPlayer.IsRepeating = true;
-=======
+
             // Song allocations
             song = Content.Load<Song>("test");
             song2 = Content.Load <Song>("test2");
             startscreen = Content.Load<Texture2D>("startscreen");
             startButton = Content.Load<Texture2D>("StartButton");
             quitbutton = Content.Load<Texture2D>("quitbutton");
->>>>>>> master
 
         }
 
@@ -199,14 +191,12 @@ namespace ChessGame
                 }
                 oldMouseState = newMouseState;
             }
-<<<<<<< HEAD
             // Song stuff WILL BE FIXED LATER. - Matthew
             if (MediaPlayer.State == MediaState.Paused)
             {
                 MediaPlayer.Play(song2);
                 MediaPlayer.IsRepeating = true;
             }
-=======
 
             //// Song stuff WILL BE FIXED LATER. - Matthew
             //if (MediaPlayer.State == MediaState.Paused)
@@ -214,7 +204,6 @@ namespace ChessGame
             //   MediaPlayer.Play(song2);
             //   MediaPlayer.IsRepeating = true;
             //}
->>>>>>> master
 
             base.Update(gameTime);
         }
@@ -228,12 +217,10 @@ namespace ChessGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-<<<<<<< HEAD
             spriteBatch.Begin();
             newBoard.Draw();
             newPawn.Draw();
             spriteBatch.End();
-=======
             if (activeGameState == gameState.MainMenu)
             {
                 spriteBatch.Begin();
@@ -249,7 +236,6 @@ namespace ChessGame
 
             }
 
->>>>>>> master
             base.Draw(gameTime);
         }
     }
