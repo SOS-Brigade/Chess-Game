@@ -94,13 +94,17 @@ namespace ChessGamePieces
     class Board : GameObject
     {
         List<GamePiece> Pieces = new List<GamePiece>();
+        Dictionary<int, Texture2D> TextureDictionary;
 
-        public Board(Vector2 pSetPosition, Texture2D pSetSprite, Rectangle pSetRectangle) : base(pSetPosition, pSetSprite, pSetRectangle)
+        public Board(Vector2 pSetPosition, Texture2D pSetSprite, Rectangle pSetRectangle, Dictionary<int,Texture2D> pPassDictionary) : base(pSetPosition, pSetSprite, pSetRectangle)
         {
+            TextureDictionary = pPassDictionary;
+            /*
             for (int i = 0; i < 10; i++)
             {
                 Pieces.Add(new GamePiece(new Vector2(0, 0), null, new Rectangle(0, 0, 30, 30)));
             }
+            */
         }
     }
 }
