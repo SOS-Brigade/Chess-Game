@@ -26,6 +26,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using ChessGameAssets;
 
 
 namespace ChessGame
@@ -52,17 +53,20 @@ namespace ChessGame
         // Mouse class allocations
         private MouseState oldMouseState;
 
-        ChessGameAssets.Board newBoard;
-        ChessGameAssets.Pawn newPawn;
+        // Board class allocations
+        Board newBoard;
+
+        // Chess piece allocations
+        Pawn newPawn;
+        
+        // Game Object Allocations
+        GameObject startButton;
+        GameObject mainscreen;
+        GameObject quitbutton;
 
         // Song class allocations
         protected Song song;
         protected Song song2;
-
-        // Start screen
-        public Texture2D startscreen;
-        public Texture2D startButton;
-        public Texture2D quitbutton;
 
         // Game State allocations
         private gameState activeGameState;
@@ -104,7 +108,10 @@ namespace ChessGame
 
             // TODO: use this.Content to load your game content here
 
-            newPawn = new ChessGameAssets.Pawn(new Vector2(0, 0), Content.Load<Texture2D>("ball"), new Rectangle(0, 0, 30, 30), spriteBatch);
+            newPawn = new Pawn(new Vector2(0, 0), Content.Load<Texture2D>("ball"), new Rectangle(0, 0, 30, 30), spriteBatch);
+            startButton = new GameObject(new Vector2(475,300), Content.Load<Texture2D>("StartButton"),new Rectangle(475,300,300,150),spriteBatch);
+            mainscreen = new GameObject(new Vector2(0, 0), Content.Load<Texture2D>("startscreen"), new Rectangle(0, 0, 1280, 720), spriteBatch);
+            quitbutton = new GameObject(new Vector2(475, 475), Content.Load<Texture2D>("quitbutton"), new Rectangle(475, 475, 300, 150), spriteBatch);
 
             // List to store all sprited to load into the piece sprite dictionary.
             List<Texture2D> textureList = new List<Texture2D>();
@@ -133,11 +140,8 @@ namespace ChessGame
 
             // Song allocations
             song = Content.Load<Song>("test");
-            song2 = Content.Load <Song>("test2");
-            startscreen = Content.Load<Texture2D>("startscreen");
-            startButton = Content.Load<Texture2D>("StartButton");
-            quitbutton = Content.Load<Texture2D>("quitbutton");
-
+            song2 = Content.Load<Song>("test2");
+            //Rectangle mouseClickRectangle = new Rectangle(newMouseState.X, newMouseState.Y, 10, 10);
         }
 
         /// <summary>
@@ -173,7 +177,7 @@ namespace ChessGame
                     if (MediaPlayer.State == MediaState.Stopped)
                     {
                         MediaPlayer.Play(song);
-                        MediaPlayer.IsRepeating = true;   
+                        MediaPlayer.IsRepeating = true;
                     }
                 }
                 if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
@@ -185,8 +189,18 @@ namespace ChessGame
                     Console.WriteLine(newMouseState.X);
                     Console.WriteLine(newMouseState.Y);
 
+
 #endif
-                    // TODO: Add the real logic for this if statement.
+                    //MouseClicked(newMouseState.X, newMouseState.Y,);
+                    if (MouseIntersected(newMouseState.X, newMouseState.Y, startButton.getRectangle()))
+                    {
+                        activeGameState = gameState.Playing;
+                        Console.WriteLine("Game state is now playing game state");
+                    }
+                    else if (MouseIntersected(newMouseState.X, newMouseState.Y, quitbutton.getRectangle()))
+                    {
+                        Exit();
+                    }
 
                 }
                 oldMouseState = newMouseState;
@@ -218,25 +232,47 @@ namespace ChessGame
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            newBoard.Draw();
-            newPawn.Draw();
-            spriteBatch.End();
+            //newBoard.Draw();
+            //newPawn.Draw();
+            //startButton.Draw();
             if (activeGameState == gameState.MainMenu)
             {
-                spriteBatch.Begin();
-                spriteBatch.Draw(startscreen, new Rectangle(0, 0, 1280, 720), Color.White);
-                spriteBatch.Draw(startButton, new Rectangle(475,300,300,150), Color.White);
-                spriteBatch.Draw(quitbutton, new Rectangle(475, 475, 300, 150), Color.White);
-                spriteBatch.End();
+                mainscreen.Draw();
+                startButton.Draw();
+                quitbutton.Draw();
             }
-
             if (activeGameState == gameState.Playing)
             {
-                // TODO: Add board drawing stuff here.
-
+                newBoard.Draw();
+                newPawn.Draw();
             }
+                //spriteBatch.Begin();
+            //    spriteBatch.Draw(startscreen, new Rectangle(0, 0, 1280, 720), Color.White);
+            //    spriteBatch.Draw(quitbutton, quitButtonRectangle, Color.White);
+            //    //spriteBatch.End();
+            //}
+            //if (activeGameState == gameState.Playing)
+            //{
+            //    // TODO: Add board drawing stuff here.
 
+            //}
+            spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        bool MouseIntersected(int x, int y, Rectangle rectangleCheck)
+        {
+            //Creates a rectangle around the mouse click - Matthew
+            Rectangle mouseClickRect = new Rectangle(x, y, 10, 10);
+
+            if (mouseClickRect.Intersects(rectangleCheck))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
