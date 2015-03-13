@@ -27,7 +27,6 @@ namespace ChessGame
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
 
-
             // Content allocations 
             Content.RootDirectory = "Content";
         }
@@ -83,7 +82,10 @@ namespace ChessGame
 
             if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
             {
-                Console.WriteLine("HEY! LISTEN!");
+#if DEBUG
+                // Useful message to see if mouse has beem clicked.
+                Console.WriteLine("Mouse was clicked.");
+#endif
             }
             oldMouseState = newMouseState;
 
