@@ -1,21 +1,3 @@
-/*   MainGame.cs - Main file of game operation.
-*    Copyright (C) 2015  Connor Blakey <connorblakey96@gmail.com>, Matthew Burling <mattyburlin@gmail.com>.
-*
-*    This program is free software; you can redistribute it and/or modify
-*    it under the terms of the GNU General Public License as published by
-*    the Free Software Foundation; either version 2 of the License, or
-*    (at your option) any later version.
-*
-*    This program is distributed in the hope that it will be useful,
-*    but WITHOUT ANY WARRANTY; without even the implied warranty of
-*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*    GNU General Public License for more details.
-*
-*    You should have received a copy of the GNU General Public License along
-*    with this program; if not, write to the Free Software Foundation, Inc.,
-*    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,16 +12,33 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ChessGame
 {
+    enum gameState
+    {
+        MainMenu,
+        Playing,
+        Paused,
+        RedWon,
+        BlueWon
+    }
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class MainGame : Microsoft.Xna.Framework.Game
+    public class Game1 : Microsoft.Xna.Framework.Game
     {
+        // Graphics Class Allocations
         GraphicsDeviceManager graphics;
+
+        // Sprite class allocations
         SpriteBatch spriteBatch;
+
+        // Mouse class allocations
         private MouseState oldMouseState;
-        
-        public MainGame()
+
+        // Song class allocations
+        protected Song song;
+        protected Song song2;
+
+        public Game1()
         {
             // Graphics allocation + resolution 
             graphics = new GraphicsDeviceManager(this);
@@ -58,7 +57,7 @@ namespace ChessGame
         /// </summary>
         protected override void Initialize()
         {
-            Window.Title = "This is the window title";
+            Window.Title = "Nyaa~ Chess";
             IsMouseVisible = true;
 
             base.Initialize();
@@ -74,6 +73,13 @@ namespace ChessGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+            // Song allocations WILL BE FIXED LATER. - Matthew
+            song = Content.Load<Song>("test");
+            song2 = Content.Load <Song>("test2");
+            MediaPlayer.Play(song);
+            MediaPlayer.IsRepeating = true;
+
         }
 
         /// <summary>
@@ -92,21 +98,32 @@ namespace ChessGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-            //    this.Exit();
+            // Allocates the mouse state and also checks if the window is active
 
             MouseState newMouseState = Mouse.GetState();
 
-
-            if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+            if(this.IsActive)
             {
+                if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+                {
 #if DEBUG
-                // Useful message to see if mouse has beem clicked.
-                Console.WriteLine("Mouse was clicked.");
+                    // Useful message to see if mouse has been clicked.
+                    // DEBUG ONLY
+                    Console.WriteLine("Mouse was clicked.");
+                    Console.WriteLine(newMouseState.X);
+                    Console.WriteLine(newMouseState.Y);
+                    MediaPlayer.Pause();
 #endif
+                    // TODO: Add the real logic for this if statement.
+                }
+                oldMouseState = newMouseState;
             }
-            oldMouseState = newMouseState;
+            // Song stuff WILL BE FIXED LATER. - Matthew
+            if (MediaPlayer.State == MediaState.Paused)
+            {
+               MediaPlayer.Play(song2);
+               MediaPlayer.IsRepeating = true;
+            }
 
             base.Update(gameTime);
         }
@@ -120,6 +137,7 @@ namespace ChessGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+
             base.Draw(gameTime);
         }
     }
