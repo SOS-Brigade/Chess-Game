@@ -84,6 +84,28 @@ namespace ChessGame
         }
 
         /// <summary>
+        /// Check if the mouse intersects a rectangle.
+        /// </summary>
+        /// <param name="x">X position of the mouse.</param>
+        /// <param name="y">Y position of the mouse.</param>
+        /// <param name="rectangleCheck">Rectangle to check the intersection against.</param>
+        /// <returns></returns>
+        bool MouseIntersected(int x, int y, Rectangle rectangleCheck)
+        {
+            //Creates a rectangle around the mouse click - Matthew
+            Rectangle mouseClickRect = new Rectangle(x, y, 10, 10);
+
+            if (mouseClickRect.Intersects(rectangleCheck))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
         /// related content.  Calling base.Initialize will enumerate through any components
@@ -258,21 +280,6 @@ namespace ChessGame
             //}
             spriteBatch.End();
             base.Draw(gameTime);
-        }
-
-        bool MouseIntersected(int x, int y, Rectangle rectangleCheck)
-        {
-            //Creates a rectangle around the mouse click - Matthew
-            Rectangle mouseClickRect = new Rectangle(x, y, 10, 10);
-
-            if (mouseClickRect.Intersects(rectangleCheck))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }
