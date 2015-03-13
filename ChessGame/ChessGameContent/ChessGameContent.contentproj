@@ -44,22 +44,44 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <Compile Include="ball.jpg">
+      <Name>ball</Name>
+=======
     <Compile Include="startscreen.png">
       <Name>startscreen</Name>
+>>>>>>> master
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <Compile Include="bat.png">
+      <Name>bat</Name>
+=======
     <Compile Include="StartButton.png">
       <Name>StartButton</Name>
+>>>>>>> master
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <Compile Include="potato.jpg">
+      <Name>potato</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Chess_Board.png">
+      <Name>Chess_Board</Name>
+=======
     <Compile Include="quitbutton.png">
       <Name>quitbutton</Name>
+>>>>>>> master
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
