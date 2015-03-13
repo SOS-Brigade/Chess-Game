@@ -52,6 +52,9 @@ namespace ChessGame
         // Mouse class allocations
         private MouseState oldMouseState;
 
+        ChessGameAssets.Board newBoard;
+        ChessGameAssets.Pawn newPawn;
+
         // Song class allocations
         protected Song song;
         protected Song song2;
@@ -78,6 +81,8 @@ namespace ChessGame
             Window.Title = "Nyaa~ Chess";
             IsMouseVisible = true;
 
+            
+
             base.Initialize();
         }
 
@@ -92,9 +97,30 @@ namespace ChessGame
 
             // TODO: use this.Content to load your game content here
 
+            newPawn = new ChessGameAssets.Pawn(new Vector2(0, 0), Content.Load<Texture2D>("ball"), new Rectangle(0, 0, 30, 30), spriteBatch);
+
+            // List to store all sprited to load into the piece sprite dictionary.
+            List<Texture2D> textureList = new List<Texture2D>();
+            // Dictionary to pass to the board for piece sprites.
+            Dictionary<int, Texture2D> spriteDictionary = new Dictionary<int, Texture2D>();
+            int spriteKey = 0;
+
+            // Load piece sprites into list here.
+            textureList.Add(Content.Load<Texture2D>("ball"));
+            textureList.Add(Content.Load<Texture2D>("bat"));
+
+            // Load all piece sprites into list into the dictionary.
+            foreach (Texture2D texture in textureList)
+            {
+                spriteDictionary.Add(spriteKey, texture);
+                spriteKey++;
+            }
+
+            newBoard = new ChessGameAssets.Board(new Vector2(0, 0), Content.Load<Texture2D>("Chess_board"), new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), spriteDictionary, spriteBatch);
+
             // Song allocations WILL BE FIXED LATER. - Matthew
             song = Content.Load<Song>("test");
-            song2 = Content.Load <Song>("test2");
+            song2 = Content.Load<Song>("test2");
             MediaPlayer.Play(song);
             MediaPlayer.IsRepeating = true;
 
@@ -120,7 +146,7 @@ namespace ChessGame
 
             MouseState newMouseState = Mouse.GetState();
 
-            if(this.IsActive)
+            if (this.IsActive)
             {
                 if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
                 {
@@ -139,8 +165,8 @@ namespace ChessGame
             // Song stuff WILL BE FIXED LATER. - Matthew
             if (MediaPlayer.State == MediaState.Paused)
             {
-               MediaPlayer.Play(song2);
-               MediaPlayer.IsRepeating = true;
+                MediaPlayer.Play(song2);
+                MediaPlayer.IsRepeating = true;
             }
 
             base.Update(gameTime);
@@ -155,7 +181,10 @@ namespace ChessGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+            newBoard.Draw();
+            newPawn.Draw();
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
