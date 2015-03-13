@@ -56,12 +56,21 @@ namespace ChessGame
         protected Song song;
         protected Song song2;
 
+        // Start screen
+        public Texture2D startscreen;
+        public Texture2D startButton;
+        public Texture2D quitbutton;
+
+        // Game State allocations
+        private gameState activeGameState;
+
         public MainGame()
         {
             // Graphics allocation + resolution 
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
+            activeGameState = gameState.MainMenu;
 
             // Content allocations 
             Content.RootDirectory = "Content";
@@ -75,9 +84,10 @@ namespace ChessGame
         /// </summary>
         protected override void Initialize()
         {
-            Window.Title = "Nyaa~ Chess";
+            Window.Title = "Nyaa Chesu";
             IsMouseVisible = true;
 
+            activeGameState = gameState.MainMenu;
             base.Initialize();
         }
 
@@ -92,11 +102,12 @@ namespace ChessGame
 
             // TODO: use this.Content to load your game content here
 
-            // Song allocations WILL BE FIXED LATER. - Matthew
+            // Song allocations
             song = Content.Load<Song>("test");
             song2 = Content.Load <Song>("test2");
-            MediaPlayer.Play(song);
-            MediaPlayer.IsRepeating = true;
+            startscreen = Content.Load<Texture2D>("startscreen");
+            startButton = Content.Load<Texture2D>("StartButton");
+            quitbutton = Content.Load<Texture2D>("quitbutton");
 
         }
 
@@ -122,6 +133,20 @@ namespace ChessGame
 
             if(this.IsActive)
             {
+                // Game state checks
+                //if (activeGameState == gameState.Paused)
+                //{
+                //    MediaPlayer.Play(song2);
+                //    MediaPlayer.IsRepeating = true;
+                //}
+                if (activeGameState == gameState.MainMenu)
+                {
+                    if (MediaPlayer.State == MediaState.Stopped)
+                    {
+                        MediaPlayer.Play(song);
+                        MediaPlayer.IsRepeating = true;   
+                    }
+                }
                 if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
                 {
 #if DEBUG
@@ -130,18 +155,20 @@ namespace ChessGame
                     Console.WriteLine("Mouse was clicked.");
                     Console.WriteLine(newMouseState.X);
                     Console.WriteLine(newMouseState.Y);
-                    MediaPlayer.Pause();
+
 #endif
                     // TODO: Add the real logic for this if statement.
+
                 }
                 oldMouseState = newMouseState;
             }
-            // Song stuff WILL BE FIXED LATER. - Matthew
-            if (MediaPlayer.State == MediaState.Paused)
-            {
-               MediaPlayer.Play(song2);
-               MediaPlayer.IsRepeating = true;
-            }
+
+            //// Song stuff WILL BE FIXED LATER. - Matthew
+            //if (MediaPlayer.State == MediaState.Paused)
+            //{
+            //   MediaPlayer.Play(song2);
+            //   MediaPlayer.IsRepeating = true;
+            //}
 
             base.Update(gameTime);
         }
@@ -155,6 +182,20 @@ namespace ChessGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            if (activeGameState == gameState.MainMenu)
+            {
+                spriteBatch.Begin();
+                spriteBatch.Draw(startscreen, new Rectangle(0, 0, 1280, 720), Color.White);
+                spriteBatch.Draw(startButton, new Rectangle(475,300,300,150), Color.White);
+                spriteBatch.Draw(quitbutton, new Rectangle(475, 475, 300, 150), Color.White);
+                spriteBatch.End();
+            }
+
+            if (activeGameState == gameState.Playing)
+            {
+                // TODO: Add board drawing stuff here.
+
+            }
 
             base.Draw(gameTime);
         }
