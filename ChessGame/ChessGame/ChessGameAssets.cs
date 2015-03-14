@@ -30,26 +30,24 @@ using Microsoft.Xna.Framework.Media;
 namespace ChessGameAssets
 {
     /// <summary>
-    /// A basic object 
+    /// A basic object used to draw a Texture2D in a Rectangle to screen.
     /// </summary>
     class GameObject
     {
         // Create allocations for position of piece, sprite texture and rectangle to draw in.
         protected Texture2D mSprite;
         protected Rectangle mSpriteRectangle;
-        protected SpriteBatch spriteBatch;
 
         /// <summary>
         /// Create a new instance of a GameObject.
         /// </summary>
         /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
         /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
-        /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
-        public GameObject(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch)
+        /// 
+        public GameObject(Texture2D pSetSprite, Rectangle pSetRectangle)
         {
             mSprite = pSetSprite;
             mSpriteRectangle = pSetRectangle;
-            spriteBatch = pSetSpriteBatch;
         }
 
         /// <summary>
@@ -91,9 +89,8 @@ namespace ChessGameAssets
         /// </summary>
         /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
         /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
-        /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
-        public GamePiece(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch)
-            : base(pSetSprite, pSetRectangle, pSetSpriteBatch)
+        /// 
+        public GamePiece(Texture2D pSetSprite, Rectangle pSetRectangle) : base(pSetSprite, pSetRectangle)
         {
             taken = false;
         }
@@ -121,11 +118,9 @@ namespace ChessGameAssets
         /// <summary>
         /// Create a new instace of a Pawn.
         /// </summary>
-        /// <param name="pSetXPosition">Vector value of the position.</param>
         /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
         /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
-        /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
-        public Pawn(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch) : base(pSetSprite, pSetRectangle, pSetSpriteBatch) { }
+        public Pawn(Texture2D pSetSprite, Rectangle pSetRectangle) : base(pSetSprite, pSetRectangle) { }
     }
 
     /// <summary>
@@ -136,11 +131,9 @@ namespace ChessGameAssets
         /// <summary>
         /// Create a new instace of a Rook.
         /// </summary>
-        /// <param name="pSetXPosition">Vector value of the position.</param>
         /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
         /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
-        /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
-        public Rook(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch) : base(pSetSprite, pSetRectangle, pSetSpriteBatch) { }
+        public Rook(Texture2D pSetSprite, Rectangle pSetRectangle) : base(pSetSprite, pSetRectangle) { }
     }
 
     /// <summary>
@@ -151,11 +144,9 @@ namespace ChessGameAssets
         /// <summary>
         /// Create a new instace of a Knight.
         /// </summary>
-        /// <param name="pSetXPosition">Vector value of the position.</param>
         /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
         /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
-        /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
-        public Knight(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch) : base(pSetSprite, pSetRectangle, pSetSpriteBatch) { }
+        public Knight(Texture2D pSetSprite, Rectangle pSetRectangle) : base(pSetSprite, pSetRectangle) { }
     }
 
     /// <summary>
@@ -166,11 +157,9 @@ namespace ChessGameAssets
         /// <summary>
         /// Create a new instace of a Bishop.
         /// </summary>
-        /// <param name="pSetXPosition">Vector value of the position.</param>
         /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
         /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
-        /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
-        public Bishop(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch) : base(pSetSprite, pSetRectangle, pSetSpriteBatch) { }
+        public Bishop(Texture2D pSetSprite, Rectangle pSetRectangle) : base(pSetSprite, pSetRectangle) { }
     }
 
     /// <summary>
@@ -181,11 +170,9 @@ namespace ChessGameAssets
         /// <summary>
         /// Create a new instace of a Queen.
         /// </summary>
-        /// <param name="pSetXPosition">Vector value of the position.</param>
         /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
         /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
-        /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
-        public Queen(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch) : base(pSetSprite, pSetRectangle, pSetSpriteBatch) { }
+        public Queen(Texture2D pSetSprite, Rectangle pSetRectangle) : base(pSetSprite, pSetRectangle) { }
     }
 
     /// <summary>
@@ -196,11 +183,9 @@ namespace ChessGameAssets
         /// <summary>
         /// Create a new instace of a King.
         /// </summary>
-        /// <param name="pSetXPosition">Vector value of the position.</param>
         /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
         /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
-        /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
-        public King(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch) : base(pSetSprite, pSetRectangle, pSetSpriteBatch) { }
+        public King(Texture2D pSetSprite, Rectangle pSetRectangle) : base(pSetSprite, pSetRectangle) { }
     }
 
     /// <summary>
@@ -219,8 +204,9 @@ namespace ChessGameAssets
         /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
         /// <param name="pLoadDictionary">Sprite dictionary to load for the game pieces. Order of sprite index: pawn, rook, knight, bishop, queen and king.</param>
         /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
-        public Board(Texture2D pSetSprite, Rectangle pSetRectangle, Dictionary<int, Texture2D> pLoadDictionary, List<GamePiece> pLoadPieces, SpriteBatch pSetSpriteBatch)
-            : base(pSetSprite, pSetRectangle, pSetSpriteBatch)
+        /// <param name="pLoadPieces">GamePieces to initialise the board with.</param>
+        public Board(Texture2D pSetSprite, Rectangle pSetRectangle, Dictionary<int, Texture2D> pLoadDictionary, List<GamePiece> pLoadPieces)
+            : base(pSetSprite, pSetRectangle)
         {
             SpriteDictionary = pLoadDictionary;
             Pieces = pLoadPieces;
