@@ -131,7 +131,6 @@ namespace ChessGame
 
             // TODO: use this.Content to load your game content here
 
-            newPawn = new Pawn(Content.Load<Texture2D>("ball"), new Rectangle(0, 0, 30, 30), spriteBatch);
             startButton = new GameObject(Content.Load<Texture2D>("StartButton"), new Rectangle(475, 300, 300, 150), spriteBatch);
             mainscreen = new GameObject(Content.Load<Texture2D>("startscreen"), new Rectangle(0, 0, 1280, 720), spriteBatch);
             quitbutton = new GameObject(Content.Load<Texture2D>("quitbutton"), new Rectangle(475, 475, 300, 150), spriteBatch);
@@ -156,6 +155,7 @@ namespace ChessGame
             }
 
             newBoard = new ChessGameAssets.Board(Content.Load<Texture2D>("Chess_board"), new Rectangle(GraphicsDevice.Viewport.Width / 8, 10, 6 * GraphicsDevice.Viewport.Width / 8, 700), spriteDictionary, spriteBatch);
+            newPawn = new Pawn(Content.Load<Texture2D>("blackpawn"), new Rectangle(Window.ClientBounds.Width / 8 + 20, 13, 80, newBoard.getRectangle().Height / 8), spriteBatch);
 
             // Song allocations
             // Anime Style Soundscape - In The Hills Copyright © 2014 Grant Stevens Varazuvi™ www.varazuvi.com
@@ -251,7 +251,6 @@ namespace ChessGame
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             //newBoard.Draw();
-            //newPawn.Draw();
             //startButton.Draw();
             if (activeGameState == gameState.MainMenu)
             {
@@ -264,6 +263,7 @@ namespace ChessGame
             {
                 Background.Draw();
                 newBoard.Draw();
+                newPawn.Draw();
             }
             //spriteBatch.Begin();
             //    spriteBatch.Draw(startscreen, new Rectangle(0, 0, 1280, 720), Color.White);
