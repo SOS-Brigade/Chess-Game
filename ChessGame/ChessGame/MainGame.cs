@@ -58,14 +58,15 @@ namespace ChessGame
 
         // Chess piece allocations
         Pawn newPawn;
-        
+
         // Game Object Allocations
         GameObject startButton;
         GameObject mainscreen;
         GameObject quitbutton;
+        GameObject Background;
 
         // Song class allocations
-        protected Song song;
+        protected Song PlayingTheme;
         protected Song song2;
 
         // Game State allocations
@@ -131,9 +132,11 @@ namespace ChessGame
             // TODO: use this.Content to load your game content here
 
             newPawn = new Pawn(new Vector2(0, 0), Content.Load<Texture2D>("ball"), new Rectangle(0, 0, 30, 30), spriteBatch);
-            startButton = new GameObject(new Vector2(475,300), Content.Load<Texture2D>("StartButton"),new Rectangle(475,300,300,150),spriteBatch);
+            startButton = new GameObject(new Vector2(475, 300), Content.Load<Texture2D>("StartButton"), new Rectangle(475, 300, 300, 150), spriteBatch);
             mainscreen = new GameObject(new Vector2(0, 0), Content.Load<Texture2D>("startscreen"), new Rectangle(0, 0, 1280, 720), spriteBatch);
             quitbutton = new GameObject(new Vector2(475, 475), Content.Load<Texture2D>("quitbutton"), new Rectangle(475, 475, 300, 150), spriteBatch);
+            Background = new GameObject(new Vector2(0,0), Content.Load<Texture2D>("Background"), new Rectangle(0, 0, 1280, 720), spriteBatch);
+
 
             // List to store all sprited to load into the piece sprite dictionary.
             List<Texture2D> textureList = new List<Texture2D>();
@@ -152,18 +155,11 @@ namespace ChessGame
                 spriteKey++;
             }
 
-            newBoard = new ChessGameAssets.Board(new Vector2(0, 0), Content.Load<Texture2D>("Chess_board"), new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), spriteDictionary, spriteBatch);
-
-            // Song allocations WILL BE FIXED LATER. - Matthew
-            song = Content.Load<Song>("test");
-            song2 = Content.Load<Song>("test2");
-            MediaPlayer.Play(song);
-            MediaPlayer.IsRepeating = true;
+            newBoard = new ChessGameAssets.Board(new Vector2(0, 0), Content.Load<Texture2D>("Chess_board"), new Rectangle(GraphicsDevice.Viewport.Width / 8, 10, 6 * GraphicsDevice.Viewport.Width / 8, 700), spriteDictionary, spriteBatch);
 
             // Song allocations
-            song = Content.Load<Song>("test");
-            song2 = Content.Load<Song>("test2");
-            //Rectangle mouseClickRectangle = new Rectangle(newMouseState.X, newMouseState.Y, 10, 10);
+            // Anime Style Soundscape - In The Hills Copyright © 2014 Grant Stevens Varazuvi™ www.varazuvi.com
+            PlayingTheme = Content.Load<Song>("inthehills");
         }
 
         /// <summary>
@@ -198,7 +194,7 @@ namespace ChessGame
                 {
                     if (MediaPlayer.State == MediaState.Stopped)
                     {
-                        MediaPlayer.Play(song);
+                        MediaPlayer.Play(PlayingTheme);
                         MediaPlayer.IsRepeating = true;
                     }
                 }
@@ -262,13 +258,14 @@ namespace ChessGame
                 mainscreen.Draw();
                 startButton.Draw();
                 quitbutton.Draw();
+
             }
             if (activeGameState == gameState.Playing)
             {
+                Background.Draw();
                 newBoard.Draw();
-                newPawn.Draw();
             }
-                //spriteBatch.Begin();
+            //spriteBatch.Begin();
             //    spriteBatch.Draw(startscreen, new Rectangle(0, 0, 1280, 720), Color.White);
             //    spriteBatch.Draw(quitbutton, quitButtonRectangle, Color.White);
             //    //spriteBatch.End();
