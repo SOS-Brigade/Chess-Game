@@ -19,9 +19,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace ChessGameAssets
 {
@@ -31,7 +35,6 @@ namespace ChessGameAssets
     class GameObject
     {
         // Create allocations for position of piece, sprite texture and rectangle to draw in.
-        protected Vector2 mPosition;
         protected Texture2D mSprite;
         protected Rectangle mSpriteRectangle;
         protected SpriteBatch spriteBatch;
@@ -39,13 +42,11 @@ namespace ChessGameAssets
         /// <summary>
         /// Create a new instance of a GameObject.
         /// </summary>
-        /// <param name="pSetXPosition">Vector value of the position.</param>
         /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
         /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
         /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
-        public GameObject(Vector2 pSetPosition, Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch)
+        public GameObject(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch)
         {
-            mPosition = pSetPosition;
             mSprite = pSetSprite;
             mSpriteRectangle = pSetRectangle;
             spriteBatch = pSetSpriteBatch;
@@ -57,7 +58,7 @@ namespace ChessGameAssets
         /// <returns>The vector position of the GameObject.</returns>
         public Vector2 getPosition()
         {
-            return mPosition;
+            return new Vector2(mSpriteRectangle.X, mSpriteRectangle.Y);
         }
 
         /// <summary>
@@ -86,11 +87,10 @@ namespace ChessGameAssets
         /// <summary>
         /// Create a new instance of a GamePiece.
         /// </summary>
-        /// <param name="pSetXPosition">Vector value of the position.</param>
         /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
         /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
         /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
-        public GamePiece(Vector2 pSetPosition, Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch) : base(pSetPosition, pSetSprite, pSetRectangle, pSetSpriteBatch) { }
+        public GamePiece(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch) : base(pSetSprite, pSetRectangle, pSetSpriteBatch) { }
 
         protected virtual void Move()
         {
@@ -110,7 +110,7 @@ namespace ChessGameAssets
         /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
         /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
         /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
-        public Pawn(Vector2 pSetPosition, Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch) : base(pSetPosition, pSetSprite, pSetRectangle, pSetSpriteBatch) { }
+        public Pawn(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch) : base(pSetSprite, pSetRectangle, pSetSpriteBatch) { }
     }
 
     /// <summary>
@@ -124,14 +124,19 @@ namespace ChessGameAssets
         /// <summary>
         /// Create a new instance of of a game Board.
         /// </summary>
-        /// <param name="pSetXPosition">Vector value of the position.</param>
         /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
         /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
         /// <param name="pPassDictionary">Sprite dictionary to load for the game pieces. Order of sprite index: pawn, rook, knight, bishop, queen and king.</param>
         /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
-        public Board(Vector2 pSetPosition, Texture2D pSetSprite, Rectangle pSetRectangle, Dictionary<int,Texture2D> pPassDictionary, SpriteBatch pSetSpriteBatch) : base(pSetPosition, pSetSprite, pSetRectangle, pSetSpriteBatch)
+        public Board(Texture2D pSetSprite, Rectangle pSetRectangle, Dictionary<int,Texture2D> pPassDictionary, SpriteBatch pSetSpriteBatch) : base(pSetSprite, pSetRectangle, pSetSpriteBatch)
         {
             SpriteDictionary = pPassDictionary;
+
+            // TEST: drawing the set of pieces.
+            for (int i = 0; i < 8; i++)
+            {
+                Pieces.Add(new Pawn(SpriteDictionary[0], new Rectangle(0, i * 90, 30, 30), spriteBatch));
+            }
         }
 
         /// <summary>
@@ -140,6 +145,10 @@ namespace ChessGameAssets
         public override void Draw()
         {
             base.Draw();
+            foreach (GamePiece piece in Pieces)
+            {
+                piece.Draw();
+            }
         }
     }
 }
