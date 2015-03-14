@@ -36,8 +36,14 @@ namespace ChessGame
         MainMenu,
         Playing,
         Paused,
-        RedWon,
-        BlueWon
+    }
+
+    enum playerState
+    {
+        blackWon,
+        whiteWon,
+        blackPlaying,
+        whitePlaying
     }
     /// <summary>
     /// This is the main type for your game
@@ -64,6 +70,8 @@ namespace ChessGame
         GameObject mainscreen;
         GameObject quitbutton;
         GameObject Background;
+        GameObject BlackTurn;
+        GameObject WhiteTurn;
 
         // Song class allocations
         protected Song PlayingTheme;
@@ -71,6 +79,7 @@ namespace ChessGame
 
         // Game State allocations
         private gameState activeGameState;
+        private playerState activePlayerState;
 
         public MainGame()
         {
@@ -135,6 +144,8 @@ namespace ChessGame
             mainscreen = new GameObject(Content.Load<Texture2D>("startscreen"), new Rectangle(0, 0, 1280, 720), spriteBatch);
             quitbutton = new GameObject(Content.Load<Texture2D>("quitbutton"), new Rectangle(475, 475, 300, 150), spriteBatch);
             Background = new GameObject(Content.Load<Texture2D>("Background"), new Rectangle(0, 0, 1280, 720), spriteBatch);
+            BlackTurn = new GameObject(Content.Load<Texture2D>("black_team"), new Rectangle(20, 200, 150, 150), spriteBatch);
+            WhiteTurn = new GameObject(Content.Load<Texture2D>("white_team"), new Rectangle(20, 200, 150, 150), spriteBatch);
 
 
             // List to store all sprited to load into the piece sprite dictionary.
@@ -263,6 +274,16 @@ namespace ChessGame
             {
                 Background.Draw();
                 newBoard.Draw();
+                activePlayerState = playerState.blackPlaying;
+                if (activePlayerState == playerState.blackPlaying)
+                {
+                    WhiteTurn.Draw();
+                    activePlayerState = playerState.whitePlaying;
+                }
+                if (activePlayerState == playerState.whitePlaying)
+                {
+                    WhiteTurn.Draw();
+                }
                 newPawn.Draw();
             }
             //spriteBatch.Begin();
