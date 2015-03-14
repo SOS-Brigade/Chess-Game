@@ -84,13 +84,27 @@ namespace ChessGameAssets
     /// </summary>
     class GamePiece : GameObject
     {
+        private bool taken;
+
         /// <summary>
         /// Create a new instance of a GamePiece.
         /// </summary>
         /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
         /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
         /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
-        public GamePiece(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch) : base(pSetSprite, pSetRectangle, pSetSpriteBatch) { }
+        public GamePiece(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch) : base(pSetSprite, pSetRectangle, pSetSpriteBatch)
+        {
+            taken = false;
+        }
+
+        /// <summary>
+        /// Checks if the GamePiece has been taken.
+        /// </summary>
+        /// <returns>If true, piece has been taken. If false, the piece has not been taken.</returns>
+        public bool IsTaken()
+        {
+            return taken;
+        }
 
         protected virtual void Move()
         {
@@ -114,12 +128,88 @@ namespace ChessGameAssets
     }
 
     /// <summary>
+    /// A Rook class for chess.
+    /// </summary>
+    class Rook : GamePiece
+    {
+        /// <summary>
+        /// Create a new instace of a Rook.
+        /// </summary>
+        /// <param name="pSetXPosition">Vector value of the position.</param>
+        /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
+        /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
+        /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
+        public Rook(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch) : base(pSetSprite, pSetRectangle, pSetSpriteBatch) { }
+    }
+
+    /// <summary>
+    /// A Knight class for chess.
+    /// </summary>
+    class Knight : GamePiece
+    {
+        /// <summary>
+        /// Create a new instace of a Knight.
+        /// </summary>
+        /// <param name="pSetXPosition">Vector value of the position.</param>
+        /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
+        /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
+        /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
+        public Knight(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch) : base(pSetSprite, pSetRectangle, pSetSpriteBatch) { }
+    }
+
+    /// <summary>
+    /// A Bishop class for chess.
+    /// </summary>
+    class Bishop : GamePiece
+    {
+        /// <summary>
+        /// Create a new instace of a Bishop.
+        /// </summary>
+        /// <param name="pSetXPosition">Vector value of the position.</param>
+        /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
+        /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
+        /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
+        public Bishop(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch) : base(pSetSprite, pSetRectangle, pSetSpriteBatch) { }
+    }
+
+    /// <summary>
+    /// A Queen class for chess.
+    /// </summary>
+    class Queen : GamePiece
+    {
+        /// <summary>
+        /// Create a new instace of a Queen.
+        /// </summary>
+        /// <param name="pSetXPosition">Vector value of the position.</param>
+        /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
+        /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
+        /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
+        public Queen(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch) : base(pSetSprite, pSetRectangle, pSetSpriteBatch) { }
+    }
+
+    /// <summary>
+    /// A King class for chess.
+    /// </summary>
+    class King : GamePiece
+    {
+        /// <summary>
+        /// Create a new instace of a King.
+        /// </summary>
+        /// <param name="pSetXPosition">Vector value of the position.</param>
+        /// <param name="pSetSprite">Sprite to be loaded into the object.</param>
+        /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
+        /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
+        public King(Texture2D pSetSprite, Rectangle pSetRectangle, SpriteBatch pSetSpriteBatch) : base(pSetSprite, pSetRectangle, pSetSpriteBatch) { }
+    }
+
+    /// <summary>
     /// A class for a chess board.
     /// </summary>
     class Board : GameObject
     {
         List<GamePiece> Pieces = new List<GamePiece>();
         Dictionary<int, Texture2D> SpriteDictionary;
+        GamePiece[,] PieceArray = new GamePiece[,] { };
 
         /// <summary>
         /// Create a new instance of of a game Board.
@@ -158,36 +248,36 @@ namespace ChessGameAssets
 
             // Add the black rooks to the top.
             xPos = mSpriteRectangle.X;
-            Pieces.Add(new Pawn(SpriteDictionary[2], new Rectangle(xPos, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
-            Pieces.Add(new Pawn(SpriteDictionary[2], new Rectangle(7 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Rook(SpriteDictionary[2], new Rectangle(xPos, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Rook(SpriteDictionary[2], new Rectangle(7 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
 
             // Add the white rooks to the bottom.
-            Pieces.Add(new Pawn(SpriteDictionary[3], new Rectangle(xPos, 7 * height / 8, width / 8, height / 8), spriteBatch));
-            Pieces.Add(new Pawn(SpriteDictionary[3], new Rectangle(7 * (width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Rook(SpriteDictionary[3], new Rectangle(xPos, 7 * height / 8, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Rook(SpriteDictionary[3], new Rectangle(7 * (width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
 
             // Add the black knights to the top.
-            Pieces.Add(new Pawn(SpriteDictionary[4], new Rectangle((width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
-            Pieces.Add(new Pawn(SpriteDictionary[4], new Rectangle(6 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Knight(SpriteDictionary[4], new Rectangle((width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Knight(SpriteDictionary[4], new Rectangle(6 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
 
             // Add the white knights to the bottom.
-            Pieces.Add(new Pawn(SpriteDictionary[5], new Rectangle((width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
-            Pieces.Add(new Pawn(SpriteDictionary[5], new Rectangle(6 * (width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Knight(SpriteDictionary[5], new Rectangle((width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Knight(SpriteDictionary[5], new Rectangle(6 * (width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
 
             // Add the black bishops to the top.
-            Pieces.Add(new Pawn(SpriteDictionary[6], new Rectangle(2 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
-            Pieces.Add(new Pawn(SpriteDictionary[6], new Rectangle(5 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Bishop(SpriteDictionary[6], new Rectangle(2 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Bishop(SpriteDictionary[6], new Rectangle(5 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
 
             // Add the white bishops to the bottom.
-            Pieces.Add(new Pawn(SpriteDictionary[7], new Rectangle(2 * (width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
-            Pieces.Add(new Pawn(SpriteDictionary[7], new Rectangle(5 * (width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Bishop(SpriteDictionary[7], new Rectangle(2 * (width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Bishop(SpriteDictionary[7], new Rectangle(5 * (width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
 
             // Add the black king and queen at the top.
-            Pieces.Add(new Pawn(SpriteDictionary[8], new Rectangle(3 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
-            Pieces.Add(new Pawn(SpriteDictionary[10], new Rectangle(4 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Queen(SpriteDictionary[8], new Rectangle(3 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new King(SpriteDictionary[10], new Rectangle(4 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
 
             // Add the white king and queen at the top.
-            Pieces.Add(new Pawn(SpriteDictionary[9], new Rectangle(4 * (width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
-            Pieces.Add(new Pawn(SpriteDictionary[11], new Rectangle(3 * (width / 8) + mSpriteRectangle.X, 7 * height /8, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Queen(SpriteDictionary[9], new Rectangle(4 * (width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new King(SpriteDictionary[11], new Rectangle(3 * (width / 8) + mSpriteRectangle.X, 7 * height /8, width / 8, height / 8), spriteBatch));
         }
 
         /// <summary>
