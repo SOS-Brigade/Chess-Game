@@ -30,37 +30,8 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="test.mp3">
-      <Name>test</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="test2.mp3">
-      <Name>test2</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ball.jpg">
-      <Name>ball</Name>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="bat.png">
-      <Name>bat</Name>
-    </Compile>
     <Compile Include="StartButton.png">
       <Name>StartButton</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="potato.jpg">
-      <Name>potato</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

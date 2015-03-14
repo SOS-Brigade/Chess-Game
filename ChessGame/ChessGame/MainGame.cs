@@ -155,8 +155,18 @@ namespace ChessGame
             int spriteKey = 0;
 
             // Load piece sprites into list here.
-            textureList.Add(Content.Load<Texture2D>("ball"));
-            textureList.Add(Content.Load<Texture2D>("bat"));
+            textureList.Add(Content.Load<Texture2D>("blackpawn"));
+            textureList.Add(Content.Load<Texture2D>("whitepawn"));
+            textureList.Add(Content.Load<Texture2D>("blackrook"));
+            textureList.Add(Content.Load<Texture2D>("whiterook"));
+            textureList.Add(Content.Load<Texture2D>("blackknight"));
+            textureList.Add(Content.Load<Texture2D>("whiteknight"));
+            textureList.Add(Content.Load<Texture2D>("blackbishop"));
+            textureList.Add(Content.Load<Texture2D>("whitebishop"));
+            textureList.Add(Content.Load<Texture2D>("blackqueen"));
+            textureList.Add(Content.Load<Texture2D>("whitequeen"));
+            textureList.Add(Content.Load<Texture2D>("blackking"));
+            textureList.Add(Content.Load<Texture2D>("whiteking"));
 
             // Load all piece sprites into list into the dictionary.
             foreach (Texture2D texture in textureList)

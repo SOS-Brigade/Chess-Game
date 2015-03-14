@@ -128,15 +128,66 @@ namespace ChessGameAssets
         /// <param name="pSetRectangle">Rectange to draw the sprite in and it's size.</param>
         /// <param name="pPassDictionary">Sprite dictionary to load for the game pieces. Order of sprite index: pawn, rook, knight, bishop, queen and king.</param>
         /// <param name="pSetSpriteBatch">SpriteBatch to use to draw the object.</param>
-        public Board(Texture2D pSetSprite, Rectangle pSetRectangle, Dictionary<int,Texture2D> pPassDictionary, SpriteBatch pSetSpriteBatch) : base(pSetSprite, pSetRectangle, pSetSpriteBatch)
+        public Board(Texture2D pSetSprite, Rectangle pSetRectangle, Dictionary<int, Texture2D> pPassDictionary, SpriteBatch pSetSpriteBatch)
+            : base(pSetSprite, pSetRectangle, pSetSpriteBatch)
         {
             SpriteDictionary = pPassDictionary;
 
-            // TEST: drawing the set of pieces.
-            for (int i = 0; i < 8; i++)
+            int width = mSpriteRectangle.Width;
+            int height = mSpriteRectangle.Height;
+
+            // Add the black pawns on the top.
+            int xPos = mSpriteRectangle.X;
+            int increase = width / 8;
+            for (int iterator = 0; iterator < 8; iterator++)
             {
-                Pieces.Add(new Pawn(SpriteDictionary[0], new Rectangle(0, i * 90, 30, 30), spriteBatch));
+                Pieces.Add(new Pawn(SpriteDictionary[0], new Rectangle(xPos, mSpriteRectangle.Y + height / 8, width / 8, height / 8), spriteBatch));
+                xPos += increase;
             }
+
+            // Add the white pawns on the bottom.
+            xPos = mSpriteRectangle.X;
+            for (int iterator = 0; iterator < 8; iterator++)
+            {
+                Pieces.Add(new Pawn(SpriteDictionary[1], new Rectangle(xPos, 6 * height / 8, width / 8, height / 8), spriteBatch));
+                xPos += increase;
+            }
+
+
+            // What you are about to experience is the most horrifying, ugly and the most disgusting piece of allocation you have ever encountered.
+
+            // Add the black rooks to the top.
+            xPos = mSpriteRectangle.X;
+            Pieces.Add(new Pawn(SpriteDictionary[2], new Rectangle(xPos, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Pawn(SpriteDictionary[2], new Rectangle(7 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
+
+            // Add the white rooks to the bottom.
+            Pieces.Add(new Pawn(SpriteDictionary[3], new Rectangle(xPos, 7 * height / 8, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Pawn(SpriteDictionary[3], new Rectangle(7 * (width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
+
+            // Add the black knights to the top.
+            Pieces.Add(new Pawn(SpriteDictionary[4], new Rectangle((width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Pawn(SpriteDictionary[4], new Rectangle(6 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
+
+            // Add the white knights to the bottom.
+            Pieces.Add(new Pawn(SpriteDictionary[5], new Rectangle((width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Pawn(SpriteDictionary[5], new Rectangle(6 * (width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
+
+            // Add the black bishops to the top.
+            Pieces.Add(new Pawn(SpriteDictionary[6], new Rectangle(2 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Pawn(SpriteDictionary[6], new Rectangle(5 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
+
+            // Add the white bishops to the bottom.
+            Pieces.Add(new Pawn(SpriteDictionary[7], new Rectangle(2 * (width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Pawn(SpriteDictionary[7], new Rectangle(5 * (width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
+
+            // Add the black king and queen at the top.
+            Pieces.Add(new Pawn(SpriteDictionary[8], new Rectangle(3 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Pawn(SpriteDictionary[10], new Rectangle(4 * (width / 8) + mSpriteRectangle.X, mSpriteRectangle.Y, width / 8, height / 8), spriteBatch));
+
+            // Add the white king and queen at the top.
+            Pieces.Add(new Pawn(SpriteDictionary[9], new Rectangle(4 * (width / 8) + mSpriteRectangle.X, 7 * height / 8, width / 8, height / 8), spriteBatch));
+            Pieces.Add(new Pawn(SpriteDictionary[11], new Rectangle(3 * (width / 8) + mSpriteRectangle.X, 7 * height /8, width / 8, height / 8), spriteBatch));
         }
 
         /// <summary>
