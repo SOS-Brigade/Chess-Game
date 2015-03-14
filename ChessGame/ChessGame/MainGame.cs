@@ -131,11 +131,11 @@ namespace ChessGame
 
             // TODO: use this.Content to load your game content here
 
-            newPawn = new Pawn(new Vector2(0, 0), Content.Load<Texture2D>("ball"), new Rectangle(0, 0, 30, 30), spriteBatch);
-            startButton = new GameObject(new Vector2(475, 300), Content.Load<Texture2D>("StartButton"), new Rectangle(475, 300, 300, 150), spriteBatch);
-            mainscreen = new GameObject(new Vector2(0, 0), Content.Load<Texture2D>("startscreen"), new Rectangle(0, 0, 1280, 720), spriteBatch);
-            quitbutton = new GameObject(new Vector2(475, 475), Content.Load<Texture2D>("quitbutton"), new Rectangle(475, 475, 300, 150), spriteBatch);
-            Background = new GameObject(new Vector2(0,0), Content.Load<Texture2D>("Background"), new Rectangle(0, 0, 1280, 720), spriteBatch);
+            newPawn = new Pawn(Content.Load<Texture2D>("ball"), new Rectangle(0, 0, 30, 30), spriteBatch);
+            startButton = new GameObject(Content.Load<Texture2D>("StartButton"), new Rectangle(475, 300, 300, 150), spriteBatch);
+            mainscreen = new GameObject(Content.Load<Texture2D>("startscreen"), new Rectangle(0, 0, 1280, 720), spriteBatch);
+            quitbutton = new GameObject(Content.Load<Texture2D>("quitbutton"), new Rectangle(475, 475, 300, 150), spriteBatch);
+            Background = new GameObject(Content.Load<Texture2D>("Background"), new Rectangle(0, 0, 1280, 720), spriteBatch);
 
 
             // List to store all sprited to load into the piece sprite dictionary.
@@ -155,7 +155,7 @@ namespace ChessGame
                 spriteKey++;
             }
 
-            newBoard = new ChessGameAssets.Board(new Vector2(0, 0), Content.Load<Texture2D>("Chess_board"), new Rectangle(GraphicsDevice.Viewport.Width / 8, 10, 6 * GraphicsDevice.Viewport.Width / 8, 700), spriteDictionary, spriteBatch);
+            newBoard = new ChessGameAssets.Board(Content.Load<Texture2D>("Chess_board"), new Rectangle(GraphicsDevice.Viewport.Width / 8, 10, 6 * GraphicsDevice.Viewport.Width / 8, 700), spriteDictionary, spriteBatch);
 
             // Song allocations
             // Anime Style Soundscape - In The Hills Copyright © 2014 Grant Stevens Varazuvi™ www.varazuvi.com
