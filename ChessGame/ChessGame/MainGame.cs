@@ -36,8 +36,14 @@ namespace ChessGame
         MainMenu,
         Playing,
         Paused,
-        RedWon,
-        BlueWon
+    }
+
+    enum playerState
+    {
+        blackWon,
+        whiteWon,
+        blackPlaying,
+        whitePlaying
     }
     /// <summary>
     /// This is the main type for your game
@@ -64,6 +70,8 @@ namespace ChessGame
         GameObject mainscreen;
         GameObject quitbutton;
         GameObject Background;
+        GameObject BlackTurn;
+        GameObject WhiteTurn;
 
         // Song class allocations
         protected Song PlayingTheme;
@@ -71,6 +79,7 @@ namespace ChessGame
 
         // Game State allocations
         private gameState activeGameState;
+        private playerState activePlayerState;
 
         public MainGame()
         {
@@ -131,11 +140,12 @@ namespace ChessGame
 
             // TODO: use this.Content to load your game content here
 
-            newPawn = new Pawn(new Vector2(0, 0), Content.Load<Texture2D>("ball"), new Rectangle(0, 0, 30, 30), spriteBatch);
-            startButton = new GameObject(new Vector2(475, 300), Content.Load<Texture2D>("StartButton"), new Rectangle(475, 300, 300, 150), spriteBatch);
-            mainscreen = new GameObject(new Vector2(0, 0), Content.Load<Texture2D>("startscreen"), new Rectangle(0, 0, 1280, 720), spriteBatch);
-            quitbutton = new GameObject(new Vector2(475, 475), Content.Load<Texture2D>("quitbutton"), new Rectangle(475, 475, 300, 150), spriteBatch);
-            Background = new GameObject(new Vector2(0,0), Content.Load<Texture2D>("Background"), new Rectangle(0, 0, 1280, 720), spriteBatch);
+            startButton = new GameObject(Content.Load<Texture2D>("StartButton"), new Rectangle(475, 300, 300, 150), spriteBatch);
+            mainscreen = new GameObject(Content.Load<Texture2D>("startscreen"), new Rectangle(0, 0, 1280, 720), spriteBatch);
+            quitbutton = new GameObject(Content.Load<Texture2D>("quitbutton"), new Rectangle(475, 475, 300, 150), spriteBatch);
+            Background = new GameObject(Content.Load<Texture2D>("Background"), new Rectangle(0, 0, 1280, 720), spriteBatch);
+            BlackTurn = new GameObject(Content.Load<Texture2D>("black_team"), new Rectangle(20, 200, 150, 150), spriteBatch);
+            WhiteTurn = new GameObject(Content.Load<Texture2D>("white_team"), new Rectangle(20, 200, 150, 150), spriteBatch);
 
 
             // List to store all sprited to load into the piece sprite dictionary.
@@ -145,8 +155,18 @@ namespace ChessGame
             int spriteKey = 0;
 
             // Load piece sprites into list here.
-            textureList.Add(Content.Load<Texture2D>("ball"));
-            textureList.Add(Content.Load<Texture2D>("bat"));
+            textureList.Add(Content.Load<Texture2D>("blackpawn"));
+            textureList.Add(Content.Load<Texture2D>("whitepawn"));
+            textureList.Add(Content.Load<Texture2D>("blackrook"));
+            textureList.Add(Content.Load<Texture2D>("whiterook"));
+            textureList.Add(Content.Load<Texture2D>("blackknight"));
+            textureList.Add(Content.Load<Texture2D>("whiteknight"));
+            textureList.Add(Content.Load<Texture2D>("blackbishop"));
+            textureList.Add(Content.Load<Texture2D>("whitebishop"));
+            textureList.Add(Content.Load<Texture2D>("blackqueen"));
+            textureList.Add(Content.Load<Texture2D>("whitequeen"));
+            textureList.Add(Content.Load<Texture2D>("blackking"));
+            textureList.Add(Content.Load<Texture2D>("whiteking"));
 
             // Load all piece sprites into list into the dictionary.
             foreach (Texture2D texture in textureList)
@@ -155,7 +175,8 @@ namespace ChessGame
                 spriteKey++;
             }
 
-            newBoard = new ChessGameAssets.Board(new Vector2(0, 0), Content.Load<Texture2D>("Chess_board"), new Rectangle(GraphicsDevice.Viewport.Width / 8, 10, 6 * GraphicsDevice.Viewport.Width / 8, 700), spriteDictionary, spriteBatch);
+            newBoard = new ChessGameAssets.Board(Content.Load<Texture2D>("Chess_board"), new Rectangle(GraphicsDevice.Viewport.Width / 8, 10, 6 * GraphicsDevice.Viewport.Width / 8, 700), spriteDictionary, spriteBatch);
+            newPawn = new Pawn(Content.Load<Texture2D>("blackpawn"), new Rectangle(Window.ClientBounds.Width / 8 + 20, 13, 80, newBoard.getRectangle().Height / 8), spriteBatch);
 
             // Song allocations
             // Anime Style Soundscape - In The Hills Copyright © 2014 Grant Stevens Varazuvi™ www.varazuvi.com
@@ -251,7 +272,6 @@ namespace ChessGame
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             //newBoard.Draw();
-            //newPawn.Draw();
             //startButton.Draw();
             if (activeGameState == gameState.MainMenu)
             {
@@ -264,6 +284,17 @@ namespace ChessGame
             {
                 Background.Draw();
                 newBoard.Draw();
+                activePlayerState = playerState.blackPlaying;
+                if (activePlayerState == playerState.blackPlaying)
+                {
+                    WhiteTurn.Draw();
+                    activePlayerState = playerState.whitePlaying;
+                }
+                if (activePlayerState == playerState.whitePlaying)
+                {
+                    WhiteTurn.Draw();
+                }
+                newPawn.Draw();
             }
             //spriteBatch.Begin();
             //    spriteBatch.Draw(startscreen, new Rectangle(0, 0, 1280, 720), Color.White);
