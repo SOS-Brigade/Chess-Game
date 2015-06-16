@@ -1,4 +1,4 @@
-﻿/*   ChessGamePieces.cs - Class file for chess pieces.
+/*   GamePiece.cs - Class file for chess pieces.
 *    Copyright (C) 2015  Connor Blakey <connorblakey96@gmail.com>, Matthew Burling <mattyburlin@gmail.com>.
 *
 *    This program is free software; you can redistribute it and/or modify
@@ -30,70 +30,6 @@ using Microsoft.Xna.Framework.Media;
 namespace ChessGameAssets
 {
     /// <summary>
-    /// A basic object used to draw a Texture2D in a Rectangle to screen.
-    /// </summary>
-    class GameObject
-    {
-        // Create allocations for position of piece, sprite texture and rectangle to draw in.
-        private Texture2D m_Sprite;
-        private Rectangle m_SpriteRectangle;
-
-        /// <summary>
-        /// Create a new instance of a GameObject.
-        /// </summary>
-        /// <param name="p_SetSprite">Sprite to be loaded into the object.</param>
-        /// <param name="p_SetRectangle">Rectange to draw the sprite in and it's size.</param>
-        public GameObject(Texture2D p_SetSprite, Rectangle p_SetRectangle)
-        {
-            m_Sprite = p_SetSprite;
-            m_SpriteRectangle = p_SetRectangle;
-        }
-
-        /// <summary>
-        /// Return the Vector2 position of the GameObject.
-        /// </summary>
-        /// <returns>The vector position of the GameObject.</returns>
-        public Vector2 getPosition()
-        {
-            return new Vector2(m_SpriteRectangle.X, m_SpriteRectangle.Y);
-        }
-
-        /// <summary>
-        /// Return the sprite contained.
-        /// </summary>
-        /// <returns>Texture2D sprite.</returns>
-        public Texture2D getSprite()
-        {
-            return m_Sprite;
-        }
-
-        /// <summary>
-        /// Set a new sprite for the object.
-        /// </summary>
-        public void setSprite(Texture2D p_NewSprite)
-        {
-            m_Sprite = p_NewSprite;
-        }
-
-        /// <summary>
-        /// Return the Rectangle of the GameObject.
-        /// </summary>
-        /// <returns>The Rectangle of the GameObject.</returns>
-        public Rectangle getRectangle()
-        {
-            return m_SpriteRectangle;
-        }
-
-        /// <summary>
-        /// Draw the GameObject to the SpriteBatch.
-        /// </summary>
-        public virtual void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(m_Sprite, m_SpriteRectangle, Color.White);
-        }
-    }
-
-    /// <summary>
     /// Base class for all chess pieces.
     /// </summary>
     class GamePiece : GameObject
@@ -120,9 +56,41 @@ namespace ChessGameAssets
             return m_Taken;
         }
 
+        /// <summary>
+        /// Change the taken state of the piece to taken.
+        /// </summary>
+        public void TakePiece()
+        {
+            if (!m_Taken)
+            {
+                m_Taken = !m_Taken;
+            }
+        }
+
+        /// <summary>
+        /// Change the taken state of the piece to not taken
+        public void ReturnPiece()
+        {
+            if (m_Taken)
+            {
+                m_Taken = !m_Taken;
+            }
+        }
+
         private virtual void Move()
         {
 
+        }
+
+        /// <summary>
+        /// Draw a GamePiece to the screen.
+        /// </summary>
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (!m_Taken)
+            {
+                return base.Draw(spriteBatch);
+            }
         }
     }
 
@@ -202,42 +170,5 @@ namespace ChessGameAssets
         /// <param name="p_SetSprite">Sprite to be loaded into the object.</param>
         /// <param name="p_SetRectangle">Rectange to draw the sprite in and it's size.</param>
         public King(Texture2D p_SetSprite, Rectangle p_SetRectangle) : base(p_SetSprite, p_SetRectangle) { }
-    }
-
-    /// <summary>
-    /// A class for a chess board.
-    /// </summary>
-    class Board : GameObject
-    {
-        List<GamePiece> Pieces;
-        Dictionary<int, Texture2D> SpriteDictionary;
-        GamePiece[,] PieceArray = new GamePiece[,] { };
-
-        /// <summary>
-        /// Create a new instance of of a game Board.
-        /// </summary>
-        /// <param name="p_SetSprite">Sprite to be loaded into the object.</param>
-        /// <param name="p_SetRectangle">Rectange to draw the sprite in and it's size.</param>
-        /// <param name="pLoadDictionary">Sprite dictionary to load for the game pieces. Order of sprite index: pawn, rook, knight, bishop, queen and king.</param>
-        /// <param name="p_SetSpriteBatch">SpriteBatch to use to draw the object.</param>
-        /// <param name="pLoadPieces">GamePieces to initialise the board with.</param>
-        public Board(Texture2D p_SetSprite, Rectangle p_SetRectangle, Dictionary<int, Texture2D> pLoadDictionary, List<GamePiece> pLoadPieces)
-            : base(p_SetSprite, p_SetRectangle)
-        {
-            SpriteDictionary = pLoadDictionary;
-            Pieces = pLoadPieces;
-        }
-
-        /// <summary>
-        /// Draw each and every GamePiece on the board.
-        /// </summary>
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            base.Draw(spriteBatch);
-            foreach (GamePiece piece in Pieces)
-            {
-                piece.Draw(spriteBatch);
-            }
-        }
     }
 }
