@@ -61,7 +61,7 @@ namespace ChessGameAssets
         /// </summary>
         public void TakePiece()
         {
-            if (!m_Taken)
+	    if (!m_Taken)
             {
                 m_Taken = !m_Taken;
             }
@@ -69,6 +69,7 @@ namespace ChessGameAssets
 
         /// <summary>
         /// Change the taken state of the piece to not taken
+	/// </summary>
         public void ReturnPiece()
         {
             if (m_Taken)
@@ -77,9 +78,12 @@ namespace ChessGameAssets
             }
         }
 
-        private virtual void Move()
+	/// <summary>
+	///
+	/// </summary>
+        public virtual bool Move()
         {
-
+	    throw new NotImplementedException();
         }
 
         /// <summary>
@@ -89,7 +93,7 @@ namespace ChessGameAssets
         {
             if (!m_Taken)
             {
-                return base.Draw(spriteBatch);
+	        return base.Draw(spriteBatch);
             }
         }
     }

@@ -289,7 +289,9 @@ namespace ChessGame
                     if (MouseIntersected(newMouseState.X, newMouseState.Y, startButton.getRectangle()) && activeGameState == gameState.MainMenu)
                     {
                         activeGameState = gameState.Playing;
+#if DEBUG
                         Console.WriteLine("Game state is now playing game state");
+#endif
                     }
                     else if (MouseIntersected(newMouseState.X, newMouseState.Y, quitbutton.getRectangle()) && activeGameState == gameState.MainMenu)
                     {

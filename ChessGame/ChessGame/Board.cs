@@ -30,13 +30,65 @@ using Microsoft.Xna.Framework.Media;
 namespace ChessGameAssets
 {
     /// <summary>
+    /// Indexing of the board tiles.
+    /// </summary>
+    enum BoardIndex
+    {
+        A,
+	B,
+	C,
+	D,
+	E,
+	F,
+	G,
+	H
+    }
+
+    /// <summary>
+    /// Data/representation class for a board tile.
+    /// </summary>
+    class BoardTile : GameObject
+    {
+        private BoardIndex m_Index;
+	private int m_Vector;
+	private GamePiece m_HeldPiece;
+
+	/// <summary>
+	/// Create a new instace of a board tile.
+	/// </summary>
+	public BoardTile(BoardIndex newIndex, int newVector)
+	{
+	    m_Index = newIndex;
+	    if (newVector > 7)
+	    {
+	        throw new Exception("Index is too large, {}.", newVector);
+	    }
+	    else if (newVector < 0)
+	    {
+	        throw new Exception("Index is too low, {}.", newVector);
+	    }
+	    m_Vector = newVector;
+	}
+
+	public BoardIndex getIndex()
+	{
+	  return m_Index;
+	}
+
+	public int getVector()
+	{
+	  return m_Vector;
+	}
+    }
+
+    /// <summary>
     /// A class for a chess board.
     /// </summary>
     class Board : GameObject
     {
         List<GamePiece> Pieces;
-        Dictionary<int, Texture2D> SpriteDictionary;
-        GamePiece[,] PieceArray = new GamePiece[,] { };
+	Dictionary<int, Texture2D> SpriteDictionary;
+	GamePiece[,] PieceArray = new GamePiece[,] { };
 
         /// <summary>
         /// Create a new instance of of a game Board.
@@ -47,14 +99,22 @@ namespace ChessGameAssets
         /// <param name="p_SetSpriteBatch">SpriteBatch to use to draw the object.</param>
         /// <param name="pLoadPieces">GamePieces to initialise the board with.</param>
         public Board(Texture2D p_SetSprite, Rectangle p_SetRectangle, Dictionary<int, Texture2D> pLoadDictionary, List<GamePiece> pLoadPieces)
-            : base(p_SetSprite, p_SetRectangle)
+	    : base(p_SetSprite, p_SetRectangle)
         {
-            SpriteDictionary = pLoadDictionary;
+	    SpriteDictionary = pLoadDictionary;
             Pieces = pLoadPieces;
-        }
+	}
+
+	/// <summary>
+	/// Finds the intersected board tile from a Mouse Rectangle.
+	/// </summary>
+	public BoardIndex getBoardTile(Rectangle p_MouseRect)
+	{
+	  throw new NotImplementedException();
+	}
 
         /// <summary>
-        /// Draw each and every GamePiece on the board.
+        /// Draw each and every GamePiece on top of the board.
         /// </summary>
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -63,6 +123,6 @@ namespace ChessGameAssets
             {
                 piece.Draw(spriteBatch);
             }
-        }
+	}
     }
 }
