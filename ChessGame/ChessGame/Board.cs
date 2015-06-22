@@ -32,7 +32,7 @@ namespace ChessGameAssets
     /// <summary>
     /// Indexing of the board tiles.
     /// </summary>
-    enum BoardIndex
+    public enum BoardIndex
     {
         A,
 	B,
@@ -61,11 +61,11 @@ namespace ChessGameAssets
 	    m_Index = newIndex;
 	    if (newVector > 7)
 	    {
-	        throw new Exception("Index is too large, {}.", newVector);
+	        throw new Exception("Index is too large, {0}.", newVector);
 	    }
 	    else if (newVector < 0)
 	    {
-	        throw new Exception("Index is too low, {}.", newVector);
+	        throw new Exception("Index is too low, {0}.", newVector);
 	    }
 	    m_Vector = newVector;
 	}
