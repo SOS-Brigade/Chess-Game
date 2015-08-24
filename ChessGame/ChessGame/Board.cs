@@ -55,8 +55,11 @@ namespace ChessGameAssets
 
 	/// <summary>
 	/// Create a new instace of a board tile.
+	/// <param name="newPiece">GamePiece to put on the tile.</param>
+	/// <param name="newRectangle">Rectangle of the tile.</param>
 	/// </summary>
-	public BoardTile(BoardIndex newIndex, int newVector)
+	public BoardTile(BoardIndex newIndex, int newVector, GamePiece newPiece, Rectangle newRectangle)
+	    : base(p_SetSprite, newRectangle)
 	{
 	    m_Index = newIndex;
 	    if (newVector > 7)
@@ -68,6 +71,7 @@ namespace ChessGameAssets
 	        throw new Exception("Index is too low, {0}.", newVector);
 	    }
 	    m_Vector = newVector;
+	    m_HeldPiece = newPiece;
 	}
 
 	public BoardIndex getIndex()
@@ -79,6 +83,11 @@ namespace ChessGameAssets
 	{
 	  return m_Vector;
 	}
+	
+	public override void Draw(SpriteBatch spriteBatch)
+	{
+	  m_HeldPiece.Draw(spriteBatch);
+	}
     }
 
     /// <summary>
@@ -86,23 +95,20 @@ namespace ChessGameAssets
     /// </summary>
     class Board : GameObject
     {
-        List<GamePiece> Pieces;
 	Dictionary<int, Texture2D> SpriteDictionary;
-	GamePiece[,] PieceArray = new GamePiece[,] { };
+	BoardTile[,] Tiles = new BoardTile[8,8];
 
         /// <summary>
         /// Create a new instance of of a game Board.
         /// </summary>
-        /// <param name="p_SetSprite">Sprite to be loaded into the object.</param>
+        /// <param name="p_SetSprite">Sprite for the board.</param>
         /// <param name="p_SetRectangle">Rectange to draw the sprite in and it's size.</param>
         /// <param name="pLoadDictionary">Sprite dictionary to load for the game pieces. Order of sprite index: pawn, rook, knight, bishop, queen and king.</param>
-        /// <param name="p_SetSpriteBatch">SpriteBatch to use to draw the object.</param>
         /// <param name="pLoadPieces">GamePieces to initialise the board with.</param>
         public Board(Texture2D p_SetSprite, Rectangle p_SetRectangle, Dictionary<int, Texture2D> pLoadDictionary, List<GamePiece> pLoadPieces)
 	    : base(p_SetSprite, p_SetRectangle)
         {
 	    SpriteDictionary = pLoadDictionary;
-            Pieces = pLoadPieces;
 	}
 
 	/// <summary>
@@ -119,10 +125,12 @@ namespace ChessGameAssets
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
+            /*
             foreach (GamePiece piece in Pieces)
             {
                 piece.Draw(spriteBatch);
             }
+            */
 	}
     }
 }
