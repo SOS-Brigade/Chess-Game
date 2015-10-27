@@ -180,20 +180,20 @@ namespace ChessGame
             newBoard = new ChessGameAssets.Board(Content.Load<Texture2D>("Chess_board"), new Rectangle(GraphicsDevice.Viewport.Width / 8, 10, 6 * GraphicsDevice.Viewport.Width / 8, 700), spriteDictionary, Pieces);
 
             // For creating the initial pieces.
-            int width = newBoard.getRectangle().Width;
-            int height = newBoard.getRectangle().Height;
+            int width = newBoard.SpriteRectangle.Width;
+            int height = newBoard.SpriteRectangle.Height;
 
             // Add the black pawns on the top.
-            int xPos = newBoard.getRectangle().X;
+            int xPos = newBoard.SpriteRectangle.X;
             int increase = width / 8;
             for (int iterator = 0; iterator < 8; iterator++)
             {
-                Pieces.Add(new Pawn(spriteDictionary[0], new Rectangle(xPos, newBoard.getRectangle().Y + height / 8, width / 8, height / 8)));
+                Pieces.Add(new Pawn(spriteDictionary[0], new Rectangle(xPos, newBoard.SpriteRectangle.Y + height / 8, width / 8, height / 8)));
                 xPos += increase;
             }
 
             // Add the white pawns on the bottom.
-            xPos = newBoard.getRectangle().X;
+            xPos = newBoard.SpriteRectangle.X;
             for (int iterator = 0; iterator < 8; iterator++)
             {
                 Pieces.Add(new Pawn(spriteDictionary[1], new Rectangle(xPos, 6 * height / 8, width / 8, height / 8)));
@@ -201,37 +201,37 @@ namespace ChessGame
             }
 
             // Add the black rooks to the top.
-            xPos = newBoard.getRectangle().X;
-            Pieces.Add(new Rook(spriteDictionary[2], new Rectangle(xPos, newBoard.getRectangle().Y, width / 8, height / 8)));
-            Pieces.Add(new Rook(spriteDictionary[2], new Rectangle(7 * (width / 8) + newBoard.getRectangle().X, newBoard.getRectangle().Y, width / 8, height / 8)));
+            xPos = newBoard.SpriteRectangle.X;
+            Pieces.Add(new Rook(spriteDictionary[2], new Rectangle(xPos, newBoard.SpriteRectangle.Y, width / 8, height / 8)));
+            Pieces.Add(new Rook(spriteDictionary[2], new Rectangle(7 * (width / 8) + newBoard.SpriteRectangle.X, newBoard.SpriteRectangle.Y, width / 8, height / 8)));
 
             // Add the white rooks to the bottom.
             Pieces.Add(new Rook(spriteDictionary[3], new Rectangle(xPos, 7 * height / 8, width / 8, height / 8)));
-            Pieces.Add(new Rook(spriteDictionary[3], new Rectangle(7 * (width / 8) + newBoard.getRectangle().X, 7 * height / 8, width / 8, height / 8)));
+            Pieces.Add(new Rook(spriteDictionary[3], new Rectangle(7 * (width / 8) + newBoard.SpriteRectangle.X, 7 * height / 8, width / 8, height / 8)));
 
             // Add the black knights to the top.
-            Pieces.Add(new Knight(spriteDictionary[4], new Rectangle((width / 8) + newBoard.getRectangle().X, newBoard.getRectangle().Y, width / 8, height / 8)));
-            Pieces.Add(new Knight(spriteDictionary[4], new Rectangle(6 * (width / 8) + newBoard.getRectangle().X, newBoard.getRectangle().Y, width / 8, height / 8)));
+            Pieces.Add(new Knight(spriteDictionary[4], new Rectangle((width / 8) + newBoard.SpriteRectangle.X, newBoard.SpriteRectangle.Y, width / 8, height / 8)));
+            Pieces.Add(new Knight(spriteDictionary[4], new Rectangle(6 * (width / 8) + newBoard.SpriteRectangle.X, newBoard.SpriteRectangle.Y, width / 8, height / 8)));
 
             // Add the white knights to the bottom.
-            Pieces.Add(new Knight(spriteDictionary[5], new Rectangle((width / 8) + newBoard.getRectangle().X, 7 * height / 8, width / 8, height / 8)));
-            Pieces.Add(new Knight(spriteDictionary[5], new Rectangle(6 * (width / 8) + newBoard.getRectangle().X, 7 * height / 8, width / 8, height / 8)));
+            Pieces.Add(new Knight(spriteDictionary[5], new Rectangle((width / 8) + newBoard.SpriteRectangle.X, 7 * height / 8, width / 8, height / 8)));
+            Pieces.Add(new Knight(spriteDictionary[5], new Rectangle(6 * (width / 8) + newBoard.SpriteRectangle.X, 7 * height / 8, width / 8, height / 8)));
 
             // Add the black bishops to the top.
-            Pieces.Add(new Bishop(spriteDictionary[6], new Rectangle(2 * (width / 8) + newBoard.getRectangle().X, newBoard.getRectangle().Y, width / 8, height / 8)));
-            Pieces.Add(new Bishop(spriteDictionary[6], new Rectangle(5 * (width / 8) + newBoard.getRectangle().X, newBoard.getRectangle().Y, width / 8, height / 8)));
+            Pieces.Add(new Bishop(spriteDictionary[6], new Rectangle(2 * (width / 8) + newBoard.SpriteRectangle.X, newBoard.SpriteRectangle.Y, width / 8, height / 8)));
+            Pieces.Add(new Bishop(spriteDictionary[6], new Rectangle(5 * (width / 8) + newBoard.SpriteRectangle.X, newBoard.SpriteRectangle.Y, width / 8, height / 8)));
 
             // Add the white bishops to the bottom.
-            Pieces.Add(new Bishop(spriteDictionary[7], new Rectangle(2 * (width / 8) + newBoard.getRectangle().X, 7 * height / 8, width / 8, height / 8)));
-            Pieces.Add(new Bishop(spriteDictionary[7], new Rectangle(5 * (width / 8) + newBoard.getRectangle().X, 7 * height / 8, width / 8, height / 8)));
+            Pieces.Add(new Bishop(spriteDictionary[7], new Rectangle(2 * (width / 8) + newBoard.SpriteRectangle.X, 7 * height / 8, width / 8, height / 8)));
+            Pieces.Add(new Bishop(spriteDictionary[7], new Rectangle(5 * (width / 8) + newBoard.SpriteRectangle.X, 7 * height / 8, width / 8, height / 8)));
 
             // Add the black king and queen at the top.
-            Pieces.Add(new Queen(spriteDictionary[8], new Rectangle(3 * (width / 8) + newBoard.getRectangle().X, newBoard.getRectangle().Y, width / 8, height / 8)));
-            Pieces.Add(new King(spriteDictionary[10], new Rectangle(4 * (width / 8) + newBoard.getRectangle().X, newBoard.getRectangle().Y, width / 8, height / 8)));
+            Pieces.Add(new Queen(spriteDictionary[8], new Rectangle(3 * (width / 8) + newBoard.SpriteRectangle.X, newBoard.SpriteRectangle.Y, width / 8, height / 8)));
+            Pieces.Add(new King(spriteDictionary[10], new Rectangle(4 * (width / 8) + newBoard.SpriteRectangle.X, newBoard.SpriteRectangle.Y, width / 8, height / 8)));
 
             // Add the white king and queen at the top.
-            Pieces.Add(new Queen(spriteDictionary[9], new Rectangle(4 * (width / 8) + newBoard.getRectangle().X, 7 * height / 8, width / 8, height / 8)));
-            Pieces.Add(new King(spriteDictionary[11], new Rectangle(3 * (width / 8) + newBoard.getRectangle().X, 7 * height / 8, width / 8, height / 8)));
+            Pieces.Add(new Queen(spriteDictionary[9], new Rectangle(4 * (width / 8) + newBoard.SpriteRectangle.X, 7 * height / 8, width / 8, height / 8)));
+            Pieces.Add(new King(spriteDictionary[11], new Rectangle(3 * (width / 8) + newBoard.SpriteRectangle.X, 7 * height / 8, width / 8, height / 8)));
 
             // Song allocations
             // Anime Style Soundscape - In The Hills Copyright © 2014 Grant Stevens Varazuvi™ www.varazuvi.com
@@ -286,14 +286,14 @@ namespace ChessGame
 
 #endif
                     //MouseClicked(newMouseState.X, newMouseState.Y,);
-                    if (MouseIntersected(newMouseState.X, newMouseState.Y, startButton.getRectangle()) && activeGameState == gameState.MainMenu)
+                    if (MouseIntersected(newMouseState.X, newMouseState.Y, startButton.SpriteRectangle) && activeGameState == gameState.MainMenu)
                     {
                         activeGameState = gameState.Playing;
 #if DEBUG
                         Console.WriteLine("Game state is now playing game state");
 #endif
                     }
-                    else if (MouseIntersected(newMouseState.X, newMouseState.Y, quitbutton.getRectangle()) && activeGameState == gameState.MainMenu)
+                    else if (MouseIntersected(newMouseState.X, newMouseState.Y, quitbutton.SpriteRectangle) && activeGameState == gameState.MainMenu)
                     {
                         Exit();
                     }
@@ -350,7 +350,7 @@ namespace ChessGame
             }
             //spriteBatch.Begin();
             //    spriteBatch.Draw(startscreen, new Rectangle(0, 0, 1280, 720), Color.White);
-            //    spriteBatch.Draw(quitbutton, quitButtonRectangle, Color.White);
+            //    spriteBatch.Draw(quitbutton, quitbuttonRectangle, Color.White);
             //    //spriteBatch.End();
             //}
             //if (activeGameState == gameState.Playing)

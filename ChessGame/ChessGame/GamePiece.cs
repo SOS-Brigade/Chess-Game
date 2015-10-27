@@ -42,7 +42,8 @@ namespace ChessGameAssets
         /// <param name="p_SetSprite">Sprite to be loaded into the object.</param>
         /// <param name="p_SetRectangle">Rectange to draw the sprite in and it's size.</param>
         ///
-        public GamePiece(Texture2D p_SetSprite, Rectangle p_SetRectangle) : base(p_SetSprite, p_SetRectangle)
+        public GamePiece(Texture2D p_SetSprite, Rectangle p_SetRectangle)
+            : base(p_SetSprite, p_SetRectangle)
         {
             m_Taken = false;
         }
@@ -61,7 +62,7 @@ namespace ChessGameAssets
         /// </summary>
         public void TakePiece()
         {
-	    if (!m_Taken)
+            if (!m_Taken)
             {
                 m_Taken = !m_Taken;
             }
@@ -69,7 +70,7 @@ namespace ChessGameAssets
 
         /// <summary>
         /// Change the taken state of the piece to not taken
-	/// </summary>
+        /// </summary>
         public void ReturnPiece()
         {
             if (m_Taken)
@@ -78,12 +79,12 @@ namespace ChessGameAssets
             }
         }
 
-	/// <summary>
-	///
-	/// </summary>
+        /// <summary>
+        ///
+        /// </summary>
         public virtual bool Move()
         {
-	    throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -93,7 +94,7 @@ namespace ChessGameAssets
         {
             if (!m_Taken)
             {
-	        return base.Draw(spriteBatch);
+                base.Draw(spriteBatch);
             }
         }
     }

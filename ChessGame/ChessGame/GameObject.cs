@@ -35,8 +35,8 @@ namespace ChessGameAssets
     class GameObject
     {
         // Create allocations for position of piece, sprite texture and rectangle to draw in.
-        public Texture2D m_Sprite;
-        public Rectangle m_SpriteRectangle;
+        public Texture2D Sprite;
+        public Rectangle SpriteRectangle;
 
         /// <summary>
         /// Create a new instance of a GameObject.
@@ -45,8 +45,8 @@ namespace ChessGameAssets
         /// <param name="p_SetRectangle">Rectange to draw the sprite in and it's size.</param>
         public GameObject(Texture2D p_SetSprite, Rectangle p_SetRectangle)
         {
-            m_Sprite = p_SetSprite;
-            m_SpriteRectangle = p_SetRectangle;
+            Sprite = p_SetSprite;
+            SpriteRectangle = p_SetRectangle;
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace ChessGameAssets
         /// <returns>The vector position of the GameObject.</returns>
         public Vector2 getPosition()
         {
-            return new Vector2(m_SpriteRectangle.X, m_SpriteRectangle.Y);
+            return new Vector2(SpriteRectangle.X, SpriteRectangle.Y);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace ChessGameAssets
         /// </summary>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(m_Sprite, m_SpriteRectangle, Color.White);
+            spriteBatch.Draw(Sprite, SpriteRectangle, Color.White);
         }
     }
 }
